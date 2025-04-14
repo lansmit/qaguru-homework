@@ -41,9 +41,9 @@ public class FormTests {
 
 //        Выбираем предмет и хобби
         $("#subjectsInput").setValue(subject).pressEnter();
-        $("label[for=hobbies-checkbox-1]").click();
-        $("label[for=hobbies-checkbox-2]").click();
-        $("label[for=hobbies-checkbox-3]").click();
+        $("#hobbiesWrapper").$(byText("Sports")).click();
+        $("#hobbiesWrapper").$(byText("Reading")).click();
+        $("#hobbiesWrapper").$(byText("Music")).click();
 
 //        Загружаем картинку
         $("#uploadPicture").uploadFromClasspath("samplephoto.jpg");
@@ -51,9 +51,9 @@ public class FormTests {
 //        Выбираем адрес
         $("#currentAddress").setValue(currentAddress);
         $("#state").click();
-        $("#react-select-3-option-1").click();
+        $("#react-select-3-input").setValue("Uttar Pradesh").pressEnter();
         $("#city").click();
-        $("#react-select-4-option-1").click();
+        $("#react-select-4-input").setValue("Agra").pressEnter();
         $("#submit").click();
 
 //        Проверяем выбранные значения
@@ -67,7 +67,7 @@ public class FormTests {
         $$("table tr").findBy(text("Hobbies")).shouldHave(text("Sports, Reading, Music"));
         $$("table tr").findBy(text("Picture")).shouldHave(text("samplephoto.jpg"));
         $$("table tr").findBy(text("Address")).shouldHave(text(currentAddress));
-        $$("table tr").findBy(text("State and City")).shouldHave(text("Uttar Pradesh Lucknow"));
+        $$("table tr").findBy(text("State and City")).shouldHave(text("Uttar Pradesh Agra"));
 
 
     }

@@ -68,8 +68,5 @@ public class FormTests {
         $$("table tr").findBy(text("Picture")).shouldHave(text("samplephoto.jpg"));
         $$("table tr").findBy(text("Address")).shouldHave(text(currentAddress));
         $$("table tr").findBy(text("State and City")).shouldHave(text("Uttar Pradesh Agra"));
-
-
     }
-
 }

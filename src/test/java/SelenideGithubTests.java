@@ -13,7 +13,7 @@ public class SelenideGithubTests {
     }
 
     @Test
-    void checkSoftAssertionsPage() {
+    void checkSoftAssertionsPageTest() {
         // Открываем Wiki в Github Selenide
         open("/selenide/selenide/wiki");
         // Кликаем на кнопку "Show 3 more pages", так как нам нужна именно ссылка в блоке Pages

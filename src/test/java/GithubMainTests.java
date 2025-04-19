@@ -17,15 +17,13 @@ public class GithubMainTests {
 
     @Test
     public void checkEnterprisePageNavigation() {
-        step("Открываем главную страницу GitHub", () -> {
-            open("https://github.com");
-        });
+        step("Открываем главную страницу GitHub",
+                () -> open("https://github.com"));
         step("Наводим курсор на Solutions и кликаем Enterprise", () -> {
             $(byTagAndText("button", "Solutions")).hover();
             $$("a").findBy(text("Enterprise")).click();
         });
-        step("Проверяем заголовок страницы", () -> {
-            $("title").shouldHave(innerText("The AI Powered Developer Platform"));
-        });
+        step("Проверяем заголовок страницы",
+                () -> $("title").shouldHave(innerText("The AI Powered Developer Platform")));
     }
 }

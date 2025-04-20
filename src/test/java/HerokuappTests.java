@@ -1,7 +1,7 @@
 import com.codeborne.selenide.DragAndDropOptions;
 import com.codeborne.selenide.*;
 import org.junit.jupiter.api.*;
-import com.codeborne.selenide.SelenideElement;;
+import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -36,7 +36,7 @@ public class HerokuappTests {
         step("Открываем страницу с drag and drop",
                 () -> open("https://the-internet.herokuapp.com/drag_and_drop"));
         step("Перетаскиваем элемент А на место В через dragAndDrop()",
-                () -> $("#column-a").dragAndDrop((DragAndDropOptions) $("#column-b")));
+                () -> $("#column-a").dragAndDrop((DragAndDropOptions.to($("#column-b")))));
         step("Проверяем, что элементы поменялись местами", () -> {
             $("#column-a header").shouldHave(text("B"));
             $("#column-b header").shouldHave(text("A"));

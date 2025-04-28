@@ -1,5 +1,6 @@
+package tests;
+
 import com.codeborne.selenide.DragAndDropOptions;
-import com.codeborne.selenide.*;
 import org.junit.jupiter.api.*;
 import com.codeborne.selenide.SelenideElement;
 

@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPageHelper;
+import pages.components.ModalDialogComponent;
 
 public class RegistrationPageObjectsTests extends TestBase {
     private final String fileName = "samplephoto.jpg",
@@ -20,11 +21,13 @@ public class RegistrationPageObjectsTests extends TestBase {
             cityName = "Agra";
 
     protected RegistrationPageHelper registrationPage = new RegistrationPageHelper();
+    protected ModalDialogComponent modalDialogComponent = new ModalDialogComponent();
 
     @Test
     void sendAllFieldsSuccessfulTest() {
 
         registrationPage.openRegistrationPage()
+                .removeBanners()
                 .setName(name)
                 .setSurname(surname)
                 .setEmail(email)
@@ -36,8 +39,19 @@ public class RegistrationPageObjectsTests extends TestBase {
                 .uploadPicture(fileName)
                 .setAddress(address)
                 .setStateAndCity(stateName, cityName)
-                .submitForm()
-                .checkResult();
+                .submitForm();
+
+        modalDialogComponent.verifyFormSubmittedSuccessfully()
+                .checkResult("Student Name", name + " " + surname)
+                .checkResult("Student Email", email)
+                .checkResult("Gender", gender)
+                .checkResult("Mobile", phoneNumber)
+                .checkResult("Date of Birth", birthDaySent + " " + birthMonthSent + "," + birthYearSent)
+                .checkResult("Subjects", subjectName)
+                .checkResult("Hobbies", hobbyName)
+                .checkResult("Picture", fileName)
+                .checkResult("Address", address)
+                .checkResult("State and City", stateName + " " + cityName);
     }
 
     @Test
@@ -48,8 +62,12 @@ public class RegistrationPageObjectsTests extends TestBase {
                 .setSurname(surname)
                 .setGender(gender)
                 .setPhoneNumber(phoneNumber)
-                .submitForm()
-                .checkResult();
+                .submitForm();
+
+        modalDialogComponent.verifyFormSubmittedSuccessfully()
+                .checkResult("Student Name", name + " " + surname)
+                .checkResult("Gender", gender)
+                .checkResult("Mobile", phoneNumber);
     }
 
     @Test

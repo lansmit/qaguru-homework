@@ -36,79 +36,68 @@ public class RegistrationPageHelper {
 
     private CalendarComponent calendarComponent = new CalendarComponent();
     private ModalDialogComponent modalDialogComponent = new ModalDialogComponent();
-    private ArrayList<String> arrayList = new ArrayList<>();
 
     public RegistrationPageHelper openRegistrationPage() {
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
-        removeBanners();
         return this;
     }
 
-    public void removeBanners(){
+    public RegistrationPageHelper removeBanners(){
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
+        return this;
     }
 
     public RegistrationPageHelper setName(String value) {
         nameInput.setValue(value);
-        arrayList.add(value);
         return this;
     }
 
     public RegistrationPageHelper setSurname(String value) {
         surnameInput.setValue(value);
-        arrayList.add(value);
         return this;
     }
 
     public RegistrationPageHelper setEmail(String value) {
         emailInput.setValue(value);
-        arrayList.add(value);
         return this;
     }
 
     public RegistrationPageHelper setGender(String value) {
         genderWrapper.$(byText(value)).click();
-        arrayList.add(value);
         return this;
     }
 
     public RegistrationPageHelper setPhoneNumber(String value) {
         phoneNumberInput.setValue(value);
-        arrayList.add(value);
         return this;
     }
 
     public RegistrationPageHelper setBirthDay(String day, String month, String year) {
         calendarInput.click();
         calendarComponent.setDate(day, month, year);
-        arrayList.add(day + " " + month + "," + year);
         return this;
     }
 
     public RegistrationPageHelper setSubject(String value) {
         subjectsInput.sendKeys(value);
         subjectsInput.pressEnter();
-        arrayList.add(value);
         return this;
     }
 
     public RegistrationPageHelper setHobby(String value) {
         hobbiesWrapper.$(byText(value)).click();
-        arrayList.add(value);
         return this;
     }
 
     public RegistrationPageHelper uploadPicture(String fileName) {
         uploadPictureButton.uploadFromClasspath(fileName);
-        arrayList.add(fileName);
         return this;
     }
 
     public RegistrationPageHelper setAddress(String value) {
         addressInput.setValue(value);
-        arrayList.add(value);
         return this;
     }
 
@@ -117,18 +106,12 @@ public class RegistrationPageHelper {
         stateCityWrapper.$(byText(state)).click();
         cityInput.click();
         stateCityWrapper.$(byText(city)).click();
-        arrayList.add(state + " " + city);
         return this;
     }
 
     public RegistrationPageHelper submitForm() {
         submitButton.click();
-        modalDialogComponent.waitingForm();
         return this;
-    }
-
-    public void checkResult() {
-        arrayList.forEach(x -> resultTable.shouldHave(text(x)));
     }
 
 //    Методы для негативных тестов

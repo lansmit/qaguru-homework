@@ -4,8 +4,6 @@ import pages.components.CalendarComponent;
 import com.codeborne.selenide.SelenideElement;
 import pages.components.ModalDialogComponent;
 
-import java.util.ArrayList;
-
 import static com.codeborne.selenide.Condition.cssValue;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;

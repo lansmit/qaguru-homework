@@ -26,8 +26,7 @@ public class RegistrationPageHelper {
             stateInput = $("#state"),
             stateCityWrapper = $("#stateCity-wrapper"),
             cityInput = $("#city"),
-            submitButton = $("#submit"),
-            resultTable = $(".table-responsive");
+            submitButton = $("#submit");
 
     private String cssPropertyName = "border-color",
             redColor = "rgb(220, 53, 69)",

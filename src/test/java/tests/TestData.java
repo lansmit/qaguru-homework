@@ -21,4 +21,5 @@ public class TestData {
     String address = getRandomAddress();
     String stateName = getRandomState();
     String cityName = getRandomCity(stateName);
+    String fileName = "samplephoto.jpg";
 }

@@ -6,8 +6,6 @@ import pages.components.ModalDialogComponent;
 import utils.RandomUtils;
 
 public class RegistrationPageObjectsTests extends TestBase {
-    private final String fileName = "samplephoto.jpg";
-
     protected RegistrationPageHelper registrationPage = new RegistrationPageHelper();
     protected ModalDialogComponent modalDialogComponent = new ModalDialogComponent();
     TestData testData = new TestData();
@@ -25,7 +23,7 @@ public class RegistrationPageObjectsTests extends TestBase {
                 .setBirthDay(testData.birthDay, testData.birthMonth, testData.birthYear)
                 .setSubject(testData.subjectName)
                 .setHobby(testData.hobbyName)
-                .uploadPicture(fileName)
+                .uploadPicture(testData.fileName)
                 .setAddress(testData.address)
                 .setStateAndCity(testData.stateName, testData.cityName)
                 .submitForm();
@@ -38,7 +36,7 @@ public class RegistrationPageObjectsTests extends TestBase {
                 .checkResult("Date of Birth", testData.birthDay + " " + testData.birthMonth + "," + testData.birthYear)
                 .checkResult("Subjects", testData.subjectName)
                 .checkResult("Hobbies", testData.hobbyName)
-                .checkResult("Picture", fileName)
+                .checkResult("Picture", testData.fileName)
                 .checkResult("Address", testData.address)
                 .checkResult("State and City", testData.stateName + " " + testData.cityName);
     }

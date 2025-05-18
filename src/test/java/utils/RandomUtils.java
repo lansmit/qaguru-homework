@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import static java.util.Locale.ENGLISH;
+
 public class RandomUtils {
 
     private static final Faker faker = new Faker(new Locale("en"));
@@ -42,7 +44,7 @@ public class RandomUtils {
         // случайных дат 29,30,31 числа.
 
         String day = new SimpleDateFormat("dd").format(birthday);
-        String month = new SimpleDateFormat("MMMM").format(birthday);
+        String month = String.valueOf(new SimpleDateFormat("MMMM", ENGLISH).format(birthday));
         String year = new SimpleDateFormat("yyyy").format(birthday);
 
         return new String[] { day, month, year };

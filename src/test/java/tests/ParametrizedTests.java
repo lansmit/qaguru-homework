@@ -2,27 +2,56 @@ package tests;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.*;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import pages.RegistrationPageHelper;
-import pages.components.ModalDialogComponent;
-import utils.RandomUtils;
+
+
+import java.util.stream.Stream;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class ParametrizedTests {
 
-    @ParameterizedTest (name = "Поиск '{0}' по Википедии должен открывать статью с названием {0}")
-    @Tag("Sample Tests")
     @ValueSource(strings = {"Java", "Python"})
-    @DisplayName("Базовый тест поиска в Википедии")
+    @ParameterizedTest (name = "Поиск {0} по Википедии должен открывать статью с названием {0}")
+    @Tag("Sample Tests")
     public void wikiSearchProgrammingLanguageShouldOpenArticleTest(String searchQuery) {
 
-    String startPage = "https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0";
+        String startPage = "https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0";
 
-    open (startPage);
-    $("#searchInput").shouldBe(visible).setValue(searchQuery);
-    $("#searchButton").click();
-    $(".mw-page-title-main").shouldHave(text(searchQuery));
+        open (startPage);
+        $("#searchInput").shouldBe(visible).setValue(searchQuery);
+        $("#searchButton").click();
+        $(".mw-page-title-main").shouldHave(text(searchQuery));
+    }
+
+    @CsvSource(value = {"Java, https://ru.wikipedia.org/wiki/Java", "Python, https://ru.wikipedia.org/wiki/Python"})
+    @ParameterizedTest(name = "Поиск {0} по Википедии должен открывать статью с названием {0}")
+    @Tag("Sample Tests")
+    public void wikiOpenDirectLinkTest(String languageName, String url) {
+        open(url);
+        $(".mw-page-title-main").shouldHave(text(languageName));
+    }
+
+    static Stream<Arguments> shouldSeeElementByIdOnWikipediaMainPage() {
+        return Stream.of(
+                Arguments.of("Изображение_дня"),
+                Arguments.of("Текущие_события"),
+                Arguments.of("Совместная_работа_недели"),
+                Arguments.of("footer-info-copyright"),
+                Arguments.of("Родственные_проекты_Викимедиа")
+        );
+    }
+
+    @MethodSource("shouldSeeElementByIdOnWikipediaMainPage")
+    @ParameterizedTest(name = "Проверка наличия элемента с id={0} на главной странице Википедии")
+    @Tag("Sample Tests")
+    void shouldSeeElementByIdOnWikipediaMainPage(String id) {
+        open("https://ru.wikipedia.org/wiki/Заглавная_страница");
+        $("#" + id).shouldBe(visible);
     }
 }
+

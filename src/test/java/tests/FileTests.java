@@ -4,7 +4,6 @@ import com.codeborne.xlstest.XLS;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.CSVReader;
-import org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import com.codeborne.pdftest.PDF;
@@ -12,11 +11,11 @@ import com.codeborne.pdftest.PDF;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.Arrays;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -93,18 +92,13 @@ public class FileTests {
     @Test
     @DisplayName("Проверяем JSON файл")
     public void readJSONWithJackson() throws Exception {
-        File jsonFile = new File("src/test/resources/widget.json");
-
-        try (InputStream inputStream = classLoader.getResourceAsStream("widget.json")) {
-            assertNotNull(inputStream, "Файл glossary.json не найден в ресурсах");
-        }
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonNode = mapper.readTree(jsonFile, JsonNode.class);
-
-        assertTrue(jsonNode.has("glossary"), "Нет ключа 'glossary'");
-        JsonNode glossary = jsonNode.get("glossary");
-        assertTrue(glossary.has("title"), "Нет ключа 'title'");
-        assertEquals("example glossary", glossary.get("title").asText());
-
+        File json = new File("src/test/resources/widget.json");
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readValue(json, JsonNode.class);
+        assertEquals("orange", jsonNode.get("color").asText());
+        assertTrue(jsonNode.get("isPaid").asBoolean());
+        assertEquals("left", jsonNode.get("place").asText());
+        assertEquals(100,jsonNode.get("height").asInt());
     }
 }
+

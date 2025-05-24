@@ -1,6 +1,6 @@
 {
   "color": "orange",
   "place": "left",
-  "height": "up",
+  "height": 100,
   "isPaid": true
 }

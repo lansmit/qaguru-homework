@@ -13,14 +13,14 @@ import java.util.stream.Stream;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class ParametrizedTests {
-
+@Tag("SampleTests")
+public class ParametrizedTests
+ {
     @ValueSource(strings = {"Java", "Python"})
     @ParameterizedTest (name = "Поиск {0} по Википедии должен открывать статью с названием {0}")
-    @Tag("Sample Tests")
     public void wikiSearchProgrammingLanguageShouldOpenArticleTest(String searchQuery) {
 
-        String startPage = "https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0";
+        String startPage = "https://ru.wikipedia.org/wiki/Заглавная_страница";
 
         open (startPage);
         $("#searchInput").shouldBe(visible).setValue(searchQuery);
@@ -30,7 +30,6 @@ public class ParametrizedTests {
 
     @CsvSource(value = {"Java, https://ru.wikipedia.org/wiki/Java", "Python, https://ru.wikipedia.org/wiki/Python"})
     @ParameterizedTest(name = "Поиск {0} по Википедии должен открывать статью с названием {0}")
-    @Tag("Sample Tests")
     public void wikiOpenDirectLinkTest(String languageName, String url) {
         open(url);
         $(".mw-page-title-main").shouldHave(text(languageName));
@@ -48,7 +47,6 @@ public class ParametrizedTests {
 
     @MethodSource("shouldSeeElementByIdOnWikipediaMainPage")
     @ParameterizedTest(name = "Проверка наличия элемента с id={0} на главной странице Википедии")
-    @Tag("Sample Tests")
     void shouldSeeElementByIdOnWikipediaMainPage(String id) {
         open("https://ru.wikipedia.org/wiki/Заглавная_страница");
         $("#" + id).shouldBe(visible);

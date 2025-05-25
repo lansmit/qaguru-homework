@@ -24,7 +24,7 @@ public class FileTests {
 
     @Test
     @DisplayName("Проверяем PDF файл из ZIP архива")
-    public void readPDFFileFromZipArchive() throws Exception {
+    public void readPDFFileFromZipArchiveTest() throws Exception {
         try (InputStream inputStream = classLoader.getResourceAsStream("TestArchive.zip")) {
             assert inputStream != null;
             try (ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
@@ -45,7 +45,7 @@ public class FileTests {
 
     @Test
     @DisplayName("Проверяем XLSX файл из ZIP архива")
-    public void readXLSXFileFromZipArchive() throws Exception {
+    public void readXLSXFileFromZipArchivTest() throws Exception {
         try (InputStream inputStream = classLoader.getResourceAsStream("TestArchive.zip")) {
             assert inputStream != null;
             try (ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
@@ -63,14 +63,12 @@ public class FileTests {
 
     @Test
     @DisplayName("Проверяем CSV файл из ZIP архива")
-    public void readCSVFileFromZipArchive() throws Exception {
+    public void readCSVFileFromZipArchiveTest() throws Exception {
 
         List<String[]> dataToCompare = Arrays.asList(
                 new String[]{"Yandex", "https://ya.ru"},
                 new String[]{"Wikipedia", "https://wikipedia.org"}
         );
-
-
         try (InputStream inputStream = classLoader.getResourceAsStream("TestArchive.zip")) {
             assert inputStream != null;
             try (ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
@@ -88,10 +86,9 @@ public class FileTests {
             }
         }
     }
-
     @Test
     @DisplayName("Проверяем JSON файл")
-    public void readJSONWithJackson() throws Exception {
+    public void readJSONWithJacksonTest() throws Exception {
         File json = new File("src/test/resources/widget.json");
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readValue(json, JsonNode.class);

@@ -29,6 +29,7 @@ dependencies {
     "com.codeborne:pdf-test:1.9.2",
     "com.codeborne:xls-test:1.4.3",
     "com.opencsv:opencsv:5.11",
+    "org.slf4j:slf4j-simple:2.0.7",
     "com.fasterxml.jackson.core:jackson-core:2.17.2",
     "com.fasterxml.jackson.core:jackson-databind:2.17.2",
     "com.fasterxml.jackson.core:jackson-annotations:2.17.2",
@@ -36,6 +37,12 @@ dependencies {
 }
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+
+task simple_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("simple")
+    }
 }
 
 test {

@@ -80,6 +80,7 @@ public class JenkinsFormTests {
             $("#uploadPicture").uploadFromClasspath("samplephoto.jpg");
         });
       step ("Выбираем адрес", () -> {
+            $("#currentAddress").scrollIntoView(true);
             $("#currentAddress").setValue(currentAddress);
             $("#state").click();
             $("#react-select-3-input").setValue("Uttar Pradesh").pressEnter();

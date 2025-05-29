@@ -2,13 +2,10 @@ package tests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
@@ -19,6 +16,9 @@ import static io.qameta.allure.Allure.step;
 
 @Tag("simple")
 public class JenkinsFormTests {
+    private static final String SELENOID_URL = System.getProperty("selenoid.url");
+    private static final String SELENOID_LOGIN = System.getProperty("selenoid.login");;
+    private static final String SELENOID_PASSWORD = System.getProperty("selenoid.password");
 
     //    Переменные для ввода значений
     String name = "SomeName";
@@ -33,7 +33,7 @@ public class JenkinsFormTests {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = "1920x1080";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+        Configuration.remote = "https://" + SELENOID_LOGIN + ":" + SELENOID_PASSWORD + "@" + SELENOID_URL + "/wd/hub";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
@@ -54,6 +54,7 @@ public class JenkinsFormTests {
     }
 
     @Test
+    @DisplayName("Проверка формы регистрации")
     void formSuccessfulTest() {
         step ("Открываем форму", () -> {
             open("/automation-practice-form");

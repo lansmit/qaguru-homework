@@ -8,7 +8,7 @@
     "allureFolder": "build/allure-report/",
     "enableChart": true,
     "enableSuitesPublishing": false,
-    "durationFormat": "HH:mm:ss.SSS",
+    "durationFormat": "HH:mm:ss.SSS"
   },
   "telegram": {
     "token": "",

@@ -3,28 +3,16 @@
     "project": "My Test Project for Lesson 13",
     "environment": "Test Environment",
     "comment": "Test Comment",
-    "reportLink": "",
+    "reportLink": "https://jenkins.autotests.cloud/job/C35-lansm_t-Unit13-notifications/",
     "language": "en",
     "allureFolder": "allure-report/",
     "enableChart": true,
-    "enableSuitesPublishing": false,
     "durationFormat": "HH:mm:ss.SSS"
   },
   "telegram": {
     "token": "7697417123:AAEzh-V2aWI8-_3aMfXLSgd694DvgqghW4I",
     "chat": "-1002630440647",
-    "topic": "",
-    "replyTo": "",
-    "templatePath": "/templates/telegram.ftl"
-  },
-  "loop": {
-    "webhookUrl": "",
-    "templatePath": "/templates/markdown.ftl"
-  },
-  "proxy": {
-    "host": "",
-    "port": 0,
-    "username": "",
-    "password": ""
+    "replyTo": ""
   }
+
 }

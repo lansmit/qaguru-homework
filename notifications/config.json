@@ -1,0 +1,30 @@
+{
+  "base": {
+    "project": "My Test Project for Lesson 13",
+    "environment": "Test Environment",
+    "comment": "Test Comment",
+    "reportLink": "",
+    "language": "en",
+    "allureFolder": "build/allure-report/",
+    "enableChart": true,
+    "enableSuitesPublishing": false,
+    "durationFormat": "HH:mm:ss.SSS",
+  },
+  "telegram": {
+    "token": "",
+    "chat": "",
+    "topic": "",
+    "replyTo": "",
+    "templatePath": "/templates/telegram.ftl"
+  },
+  "loop": {
+    "webhookUrl": "",
+    "templatePath": "/templates/markdown.ftl"
+  },
+  "proxy": {
+    "host": "",
+    "port": 0,
+    "username": "",
+    "password": ""
+  }
+}

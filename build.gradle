@@ -24,6 +24,7 @@ repositories {
 dependencies {
     testImplementation (
     "com.codeborne:selenide:7.8.1",
+    "io.rest-assured:rest-assured:5.3.1",
     "com.github.javafaker:javafaker:1.0.2",
     "org.junit.jupiter:junit-jupiter:5.11.4",
     "com.codeborne:pdf-test:1.9.2",
@@ -43,11 +44,11 @@ tasks.withType(Test) {
     systemProperties(System.getProperties())
 }
 
-task simple_test(type: Test) {
-    useJUnitPlatform {
-        includeTags("simple")
-    }
-}
+//task simple_test(type: Test) {
+//    useJUnitPlatform {
+//        includeTags("simple")
+//    }
+//}
 
 test {
     useJUnitPlatform()

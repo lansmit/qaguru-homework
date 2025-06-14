@@ -1,6 +1,6 @@
 {
   "base": {
-    "project": "My Test Project for Lesson 13",
+    "project": "API-тесты",
     "environment": "Test Environment",
     "comment": "Test Comment",
     "reportLink": "https://jenkins.autotests.cloud/job/C35-lansm_t-Unit13-notifications/",

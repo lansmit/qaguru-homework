@@ -1,9 +1,9 @@
 package tests;
 
-import models.users.UserBodyModel;
-import models.users.UserCreationModel;
-import models.users.UserCreationResponseModel;
-import models.users.UserResponseModel;
+import models.user_changes.UserBodyModel;
+import models.registration.UserRegistrationModel;
+import models.user_changes.UserCreationResponseModel;
+import models.user_changes.UserResponseModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -92,7 +92,7 @@ public class ApiImprovedTests extends ApiTestBase {
     @DisplayName("Регистрация без пароля")
     void tryRegisterWithoutPasswordTest() {
 
-        UserCreationModel userCreateData = new UserCreationModel();
+        UserRegistrationModel userCreateData = new UserRegistrationModel();
         userCreateData.setName("Skrillex");
 
         step("Отправляем запрос на регистрацию без пароля", () ->

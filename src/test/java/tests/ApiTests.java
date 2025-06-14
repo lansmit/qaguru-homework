@@ -93,13 +93,22 @@ public class ApiTests extends ApiTestBase {
                 .statusCode(400);
     }
 
-
-
-
-
-
-
-
-
-
+    @Test
+    @DisplayName("Редактирование пользователя")
+    void updateUserWithPatchMethodTest() {
+        given()
+                .header(FREE_API_KEY_NAME, FREE_API_KEY_VALUE)
+                .body("{\"name\": \"Skrillex\", \"job\": \"producer\"}")
+                .log().uri()
+                .log().body()
+        .when()
+                .patch(USERS_END_POINT + validUserId)
+        .then()
+                .log().status()
+                .log().body()
+                .statusCode(200)
+                .body("name", equalTo("Skrillex"))
+                .body("job", equalTo("producer"))
+                .body("updatedAt", matchesRegex("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z"));
+    }
 }

@@ -26,17 +26,17 @@ public class ApiImprovedTests extends ApiTestBase {
     @DisplayName("Запрос данных по несуществующему пользователю")
     void userNotFound404ImprovedTest() {
         step("Делаем запрос по несуществующему пользователю", () ->
-        given(RequestSpec)
-        .when()
-                .get(USERS_END_POINT + notValidUserId)
-        .then()
-                .spec(responseSpec(404))
-                .body(equalTo("{}")));
+                given(RequestSpec)
+                .when()
+                        .get(USERS_END_POINT + notValidUserId)
+                .then()
+                        .spec(responseSpec(404))
+                        .body(equalTo("{}")));
     }
 
     @Test
     @DisplayName("Редактирование пользователя")
-    void updateUserTest() {
+    void updateUserImprovedTest() {
 
         UserBodyModel userPutData = new UserBodyModel();
         userPutData.setName("Skrillex");
@@ -45,9 +45,9 @@ public class ApiImprovedTests extends ApiTestBase {
         UserResponseModel response = step("Отправляем запрос на редактирование пользователя", () ->
                 given(RequestSpec)
                         .body(userPutData)
-                        .when()
+                .when()
                         .put(USERS_END_POINT + validUserId)
-                        .then()
+                .then()
                         .spec(responseSpec(200))
                         .extract().as(UserResponseModel.class)
         );
@@ -62,49 +62,74 @@ public class ApiImprovedTests extends ApiTestBase {
 
     @Test
     @DisplayName("Создание пользователя")
-    void createUserTest() {
+    void createUserImprovedTest() {
 
         UserBodyModel userPutData = new UserBodyModel();
         userPutData.setName("Skrillex");
         userPutData.setJob("Producer");
 
         step("Отправляем запрос на создание пользователя", () ->
-        given(RequestSpec)
-                .body (userPutData)
-        .when()
-                .post(USERS_END_POINT + validUserId)
-        .then()
-                .spec(responseSpec(201))
-                .extract().as(UserCreationResponseModel.class));
+                given(RequestSpec)
+                        .body(userPutData)
+                .when()
+                        .post(USERS_END_POINT + validUserId)
+                .then()
+                        .spec(responseSpec(201))
+                        .extract().as(UserCreationResponseModel.class));
     }
 
     @Test
     @DisplayName("Удаление пользователя")
-    void deleteUserTest() {
+    void deleteUserImprovedTest() {
 
         step("Отправляем запрос на удаление пользователя", () ->
-        given(RequestSpec)
-        .when()
-                .delete(USERS_END_POINT + validUserId)
-        .then()
-                .spec(responseSpec(204)));
+                given(RequestSpec)
+                .when()
+                        .delete(USERS_END_POINT + validUserId)
+                .then()
+                        .spec(responseSpec(204)));
     }
 
     @Test
     @DisplayName("Регистрация без пароля")
-    void tryRegisterWithoutPasswordTest() {
+    void tryRegisterWithoutPasswordImprovedTest() {
 
         UserRegistrationModel userCreateData = new UserRegistrationModel();
         userCreateData.setName("Skrillex");
 
         step("Отправляем запрос на регистрацию без пароля", () ->
-        given(RequestSpec)
-                .body (userCreateData)
-        .when()
-                .post(USERS_END_POINT + validUserId)
+                given(RequestSpec)
+                        .body(userCreateData)
+                .when()
+                        .post(USERS_END_POINT + validUserId)
+                .then()
+                        .spec(responseSpec(400))
+                        .body("error", equalTo("Missing password")));
+    }
 
-        .then()
-                .spec(responseSpec(400))
-                .body("error", equalTo("Missing password")));
+    @Test
+    @DisplayName("Редактирование пользователя")
+    void updateUserWithPatchMethodImprovedTest() {
+
+        UserBodyModel userPutData = new UserBodyModel();
+        userPutData.setName("Skrillex");
+        userPutData.setJob("Producer");
+
+        UserResponseModel response = step("Отправляем запрос на редактирование пользователя", () ->
+                given(RequestSpec)
+                        .body(userPutData)
+                .when()
+                        .patch(USERS_END_POINT + validUserId)
+                .then()
+                        .spec(responseSpec(200))
+                        .extract().as(UserResponseModel.class)
+        );
+        step("Проверяем значения в ответе", () -> {
+            assertEquals("Skrillex", response.getName(), "Имя пользователя должно совпадать");
+            assertEquals("Producer", response.getJob(), "Должность пользователя должна совпадать");
+            assertTrue(response.getUpdatedAt().matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z"),
+                    "Поле updatedAt должно соответствовать формату даты"
+            );
+        });
     }
 }

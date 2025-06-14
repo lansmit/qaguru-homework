@@ -5,6 +5,7 @@ import models.registration.UserRegistrationModel;
 import models.user_changes.UserCreationResponseModel;
 import models.user_changes.UserResponseModel;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static io.qameta.allure.Allure.step;
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static specs.BaseSpec.*;
 
+@Tag("API")
 public class ApiImprovedTests extends ApiTestBase {
 
     int validUserId = 2;

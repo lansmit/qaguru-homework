@@ -14,7 +14,7 @@ import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
-@Tag("simple")
+@Tag("smoke")
 public class JenkinsFormTests {
     private static final String SELENOID_URL = System.getProperty("selenoid.url");
     private static final String SELENOID_LOGIN = System.getProperty("selenoid.login");;

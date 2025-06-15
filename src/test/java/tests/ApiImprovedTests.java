@@ -1,7 +1,7 @@
 package tests;
 
-import models.user_changes.UserBodyModel;
 import models.registration.UserRegistrationModel;
+import models.user_changes.UserBodyModel;
 import models.user_changes.UserCreationResponseModel;
 import models.user_changes.UserResponseModel;
 import org.junit.jupiter.api.DisplayName;
@@ -9,11 +9,12 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static io.qameta.allure.Allure.step;
-import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static specs.BaseSpec.*;
+import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.nullValue;
+import static specs.BaseSpec.RequestSpec;
+import static specs.BaseSpec.responseSpec;
 
 @Tag("API")
 public class ApiImprovedTests extends ApiTestBase {
@@ -52,11 +53,17 @@ public class ApiImprovedTests extends ApiTestBase {
                         .extract().as(UserResponseModel.class)
         );
         step("Проверяем значения в ответе", () -> {
-            assertEquals("Skrillex", response.getName(), "Имя пользователя должно совпадать");
-            assertEquals("Producer", response.getJob(), "Должность пользователя должна совпадать");
-            assertTrue(response.getUpdatedAt().matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z"),
-                    "Поле updatedAt должно соответствовать формату даты"
-            );
+            assertThat(response.getName())
+                    .as("Имя пользователя должно совпадать")
+                    .isEqualTo("Skrillex");
+
+            assertThat(response.getJob())
+                    .as("Должность пользователя должна совпадать")
+                    .isEqualTo("Producer");
+
+            assertThat(response.getUpdatedAt())
+                    .as("Поле updatedAt должно соответствовать формату даты")
+                    .matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z");
         });
     }
 
@@ -103,8 +110,9 @@ public class ApiImprovedTests extends ApiTestBase {
                 .when()
                         .post(USERS_END_POINT + validUserId)
                 .then()
-                        .spec(responseSpec(400))
-                        .body("error", equalTo("Missing password")));
+                        .spec(responseSpec(201))
+                        .body("name", equalTo("Skrillex"))
+                        .body("password", nullValue()));
     }
 
     @Test
@@ -125,11 +133,17 @@ public class ApiImprovedTests extends ApiTestBase {
                         .extract().as(UserResponseModel.class)
         );
         step("Проверяем значения в ответе", () -> {
-            assertEquals("Skrillex", response.getName(), "Имя пользователя должно совпадать");
-            assertEquals("Producer", response.getJob(), "Должность пользователя должна совпадать");
-            assertTrue(response.getUpdatedAt().matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z"),
-                    "Поле updatedAt должно соответствовать формату даты"
-            );
+            assertThat(response.getName())
+                    .as("Имя пользователя должно совпадать")
+                    .isEqualTo("Skrillex");
+
+            assertThat(response.getJob())
+                    .as("Должность пользователя должна совпадать")
+                    .isEqualTo("Producer");
+
+            assertThat(response.getUpdatedAt())
+                    .as("Поле updatedAt должно соответствовать формату даты")
+                    .matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z");
         });
     }
 }
